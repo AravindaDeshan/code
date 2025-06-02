@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeMaster - Learn Programming</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Global Styles */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #282A35;
+            --accent-color: #FF5722;
+            --python-blue: #3776AB;
+            --light-bg: #f1f1f1;
+            --dark-text: #333;
+            --light-text: #fff;
+            --card-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--secondary-color), #1a1a2e);
+            color: var(--light-text);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo i {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .logo span {
+            color: var(--light-text);
+        }
+        
+        .language-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .lang-btn {
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: rgba(255,255,255,0.1);
+            transition: all 0.3s;
+            font-size: 14px;
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .lang-btn:hover, .lang-btn.active {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .lang-btn[data-lang="python"]:hover, 
+        .lang-btn[data-lang="python"].active {
+            background-color: var(--python-blue);
+        }
+        
+        .lang-btn[data-lang="js"]:hover, 
+        .lang-btn[data-lang="js"].active {
+            background-color: #F0DB4F;
+            color: #323330;
+        }
+        
+        .lang-btn[data-lang="php"]:hover, 
+        .lang-btn[data-lang="php"].active {
+            background-color: #777BB3;
+        }
+        
+        .lang-btn[data-lang="cpp"]:hover, 
+        .lang-btn[data-lang="cpp"].active {
+            background-color: #00599C;
+        }
+        
+        .lang-btn[data-lang="arduino"]:hover, 
+        .lang-btn[data-lang="arduino"].active {
+            background-color: #00979D;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(-45deg, #2b5876, #4e4376, #2b5876, #4e4376);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(255,255,255,0.05)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: 30px 30px;
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .hero-btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .primary-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .primary-btn:hover {
+            background-color: #3d8b40;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .secondary-btn {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .secondary-btn:hover {
+            background-color: rgba(255,255,255,0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 80px 20px;
+            background-color: white;
+        }
+        
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            animation: fadeIn 0.8s ease-out;
+            animation-fill-mode: backwards;
+        }
+        
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--secondary-color);
+        }
+        
+        /* Main Content Styles */
+        .main-container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .sidebar {
+            width: 280px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            height: fit-content;
+            position: sticky;
+            top: 90px;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .sidebar h3 {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--secondary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .sidebar h3 i {
+            color: var(--primary-color);
+        }
+        
+        .sidebar ul {
+            list-style: none;
+        }
+        
+        .sidebar ul li {
+            margin-bottom: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 5px;
+            height: 5px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .sidebar ul li:hover::before {
+            opacity: 1;
+            left: 5px;
+        }
+        
+        .sidebar ul li a {
+            display: block;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-size: 15px;
+            padding-left: 20px;
+        }
+        
+        .sidebar ul li a:hover {
+            background-color: var(--light-bg);
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+        
+        .sidebar ul li.active a {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 500;
+        }
+        
+        .sidebar ul li.active::before {
+            background-color: white;
+            opacity: 1;
+            left: 5px;
+        }
+        
+        .content {
+            flex: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            padding: 30px;
+            transition: all 0.3s ease;
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        .content:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .content h1 {
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+            font-size: 32px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content h2 {
+            margin: 30px 0 15px;
+            color: var(--secondary-color);
+            font-size: 24px;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .content h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+        }
+        
+        .content p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .content ul, .content ol {
+            margin-bottom: 20px;
+            padding-left: 30px;
+        }
+        
+        .content li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .content ul li::before {
+            content: '▹';
+            position: absolute;
+            left: -20px;
+            color: var(--primary-color);
+        }
+        
+        .code-example {
+            background-color: #1E1E1E;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            position: relative;
+            overflow-x: auto;
+            color: #f8f8f2;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .code-example button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .code-example button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+        
+        .try-it-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+            transition: all 0.3s;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .try-it-button:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .language-icon {
+            width: 28px;
+            height: 28px;
+            vertical-align: middle;
+            margin-right: 8px;
+            border-radius: 4px;
+        }
+        
+        /* Python specific styles */
+        .python-icon {
+            background-color: var(--python-blue);
+            padding: 2px;
+        }
+        
+        /* Stats Section */
+        .stats {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-item {
+            padding: 30px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.15);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 20px;
+            background-color: #f9f9f9;
+        }
+        
+        .testimonial-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(0,0,0,0.05);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 20px;
+            font-style: italic;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .author-info h4 {
+            margin-bottom: 5px;
+            color: var(--secondary-color);
+        }
+        
+        .author-info p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Footer Styles */
+        footer {
+            background: linear-gradient(135deg, var(--secondary-color), #1a1a2e);
+            color: var(--light-text);
+            padding: 60px 0 0;
+        }
+        
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h4 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-column ul li a {
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        
+        .footer-column ul li a i {
+            width: 20px;
+            text-align: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 60px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .main-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+                margin-bottom: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .language-selector {
+                width: 100%;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                justify-content: flex-start;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .features-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <a href="#">Code<span>Master</span></a>
+            </div>
+            <div class="language-selector">
+                <a href="#" class="lang-btn active" data-lang="html">
+                    <i class="fab fa-html5"></i> HTML
+                </a>
+                <a href="#" class="lang-btn" data-lang="css">
+                    <i class="fab fa-css3-alt"></i> CSS
+                </a>
+                <a href="#" class="lang-btn" data-lang="js">
+                    <i class="fab fa-js"></i> JavaScript
+                </a>
+                <a href="#" class="lang-btn" data-lang="python">
+                    <i class="fab fa-python"></i> Python
+                </a>
+                <a href="#" class="lang-btn" data-lang="php">
+                    <i class="fab fa-php"></i> PHP
+                </a>
+                <a href="#" class="lang-btn" data-lang="cpp">
+                    <i class="fas fa-file-code"></i> C++
+                </a>
+                <a href="#" class="lang-btn" data-lang="arduino">
+                    <i class="fas fa-microchip"></i> Arduino
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Learn to Code Like a Pro</h1>
+            <p>Master programming languages with our interactive tutorials, real-world examples, and hands-on projects. Start your coding journey today!</p>
+            <div class="hero-buttons">
+                <a href="#" class="hero-btn primary-btn">
+                    <i class="fas fa-play"></i> Start Learning
+                </a>
+                <a href="#" class="hero-btn secondary-btn">
+                    <i class="fas fa-project-diagram"></i> View Projects
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section class="features">
+        <div class="features-container">
+            <h2 class="section-title">Why Learn With CodeMaster?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Interactive Learning</h3>
+                    <p>Practice coding right in your browser with our interactive code editor and see results instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Expert Guidance</h3>
+                    <p>Learn from industry professionals with years of experience in software development and teaching.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Real Projects</h3>
+                    <p>Build portfolio-worthy projects that demonstrate your skills to potential employers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Community Support</h3>
+                    <p>Join our vibrant community of learners and get help when you're stuck on a problem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Programming Languages</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Interactive Lessons</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1M+</div>
+                <div class="stat-label">Students Worldwide</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100+</div>
+                <div class="stat-label">Real-world Projects</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Main Content Section -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h3><i class="fas fa-file-code"></i> HTML Tutorial</h3>
+            <ul>
+                <li class="active" data-content="html-intro"><a href="#">HTML Introduction</a></li>
+                <li data-content="html-basics"><a href="#">HTML Basics</a></li>
+                <li data-content="html-elements"><a href="#">HTML Elements</a></li>
+                <li data-content="html-attributes"><a href="#">HTML Attributes</a></li>
+                <li data-content="html-headings"><a href="#">HTML Headings</a></li>
+                <li data-content="html-paragraphs"><a href="#">HTML Paragraphs</a></li>
+                <li data-content="html-links"><a href="#">HTML Links</a></li>
+                <li data-content="html-images"><a href="#">HTML Images</a></li>
+                <li data-content="html-tables"><a href="#">HTML Tables</a></li>
+                <li data-content="html-lists"><a href="#">HTML Lists</a></li>
+                <li data-content="html-forms"><a href="#">HTML Forms</a></li>
+                <li data-content="html5-features"><a href="#">HTML5 Features</a></li>
+            </ul>
+            
+            <h3><i class="fas fa-paint-brush"></i> CSS Tutorial</h3>
+            <ul>
+                <li data-content="css-intro"><a href="#">CSS Introduction</a></li>
+                <li data-content="css-syntax"><a href="#">CSS Syntax</a></li>
+                <li data-content="css-selectors"><a href="#">CSS Selectors</a></li>
+                <li data-content="css-colors"><a href="#">CSS Colors</a></li>
+                <li data-content="css-backgrounds"><a href="#">CSS Backgrounds</a></li>
+                <li data-content="css-box-model"><a href="#">CSS Box Model</a></li>
+                <li data-content="css-text"><a href="#">CSS Text</a></li>
+                <li data-content="css-fonts"><a href="#">CSS Fonts</a></li>
+                <li data-content="css-layout"><a href="#">CSS Layout</a></li>
+                <li data-content="css-flexbox"><a href="#">CSS Flexbox</a></li>
+                <li data-content="css-grid"><a href="#">CSS Grid</a></li>
+                <li data-content="css-responsive"><a href="#">CSS Responsive</a></li>
+            </ul>
+            
+            <h3><i class="fab fa-js"></i> JavaScript Tutorial</h3>
+            <ul>
+                <li data-content="js-intro"><a href="#">JS Introduction</a></li>
+                <li data-content="js-syntax"><a href="#">JS Syntax</a></li>
+                <li data-content="js-variables"><a href="#">JS Variables</a></li>
+                <li data-content="js-operators"><a href="#">JS Operators</a></li>
+                <li data-content="js-functions"><a href="#">JS Functions</a></li>
+                <li data-content="js-objects"><a href="#">JS Objects</a></li>
+                <li data-content="js-events"><a href="#">JS Events</a></li>
+                <li data-content="js-dom"><a href="#">DOM Manipulation</a></li>
+                <li data-content="js-bom"><a href="#">BOM</a></li>
+                <li data-content="js-ajax"><a href="#">AJAX</a></li>
+                <li data-content="js-json"><a href="#">JSON</a></li>
+                <li data-content="js-es6"><a href="#">ES6 Features</a></li>
+            </ul>
+            
+            <h3><i class="fab fa-python"></i> Python Tutorial</h3>
+            <ul>
+                <li data-content="python-intro"><a href="#">Python Introduction</a></li>
+                <li data-content="python-syntax"><a href="#">Python Syntax</a></li>
+                <li data-content="python-variables"><a href="#">Variables</a></li>
+                <li data-content="python-data-types"><a href="#">Data Types</a></li>
+                <li data-content="python-operators"><a href="#">Operators</a></li>
+                <li data-content="python-strings"><a href="#">Strings</a></li>
+                <li data-content="python-lists"><a href="#">Lists</a></li>
+                <li data-content="python-tuples"><a href="#">Tuples</a></li>
+                <li data-content="python-dictionaries"><a href="#">Dictionaries</a></li>
+                <li data-content="python-functions"><a href="#">Functions</a></li>
+                <li data-content="python-modules"><a href="#">Modules</a></li>
+                <li data-content="python-oop"><a href="#">OOP Concepts</a></li>
+            </ul>
+            
+            <h3><i class="fab fa-php"></i> PHP Tutorial</h3>
+            <ul>
+                <li data-content="php-basics"><a href="#">PHP Basics</a></li>
+                <li data-content="php-syntax"><a href="#">PHP Syntax</a></li>
+                <li data-content="php-variables"><a href="#">PHP Variables</a></li>
+                <li data-content="php-operators"><a href="#">PHP Operators</a></li>
+                <li data-content="php-loops"><a href="#">PHP Loops</a></li>
+                <li data-content="php-functions"><a href="#">PHP Functions</a></li>
+                <li data-content="php-arrays"><a href="#">PHP Arrays</a></li>
+                <li data-content="php-forms"><a href="#">PHP Forms</a></li>
+                <li data-content="php-mysql"><a href="#">PHP MySQL</a></li>
+                <li data-content="php-oop"><a href="#">PHP OOP</a></li>
+                <li data-content="php-exceptions"><a href="#">PHP Exceptions</a></li>
+            </ul>
+            
+            <h3><i class="fas fa-file-code"></i> C/C++ Tutorial</h3>
+            <ul>
+                <li data-content="c-basics"><a href="#">C Basics</a></li>
+                <li data-content="c-syntax"><a href="#">C Syntax</a></li>
+                <li data-content="c-variables"><a href="#">C Variables</a></li>
+                <li data-content="c-pointers"><a href="#">C Pointers</a></li>
+                <li data-content="c-functions"><a href="#">C Functions</a></li>
+                <li data-content="c-structures"><a href="#">C Structures</a></li>
+                <li data-content="cpp-basics"><a href="#">C++ Basics</a></li>
+                <li data-content="cpp-oop"><a href="#">C++ OOP</a></li>
+                <li data-content="cpp-classes"><a href="#">C++ Classes</a></li>
+                <li data-content="cpp-inheritance"><a href="#">C++ Inheritance</a></li>
+                <li data-content="cpp-polymorphism"><a href="#">C++ Polymorphism</a></li>
+                <li data-content="cpp-stl"><a href="#">STL Library</a></li>
+            </ul>
+            
+            <h3><i class="fas fa-microchip"></i> Arduino Tutorial</h3>
+            <ul>
+                <li data-content="arduino-intro"><a href="#">Arduino Intro</a></li>
+                <li data-content="arduino-ide"><a href="#">Arduino IDE</a></li>
+                <li data-content="arduino-syntax"><a href="#">Arduino Syntax</a></li>
+                <li data-content="arduino-variables"><a href="#">Variables</a></li>
+                <li data-content="arduino-functions"><a href="#">Functions</a></li>
+                <li data-content="arduino-circuits"><a href="#">Basic Circuits</a></li>
+                <li data-content="arduino-digital"><a href="#">Digital I/O</a></li>
+                <li data-content="arduino-analog"><a href="#">Analog I/O</a></li>
+                <li data-content="arduino-sensors"><a href="#">Sensors</a></li>
+                <li data-content="arduino-displays"><a href="#">Displays</a></li>
+                <li data-content="arduino-motors"><a href="#">Motors</a></li>
+                <li data-content="arduino-iot"><a href="#">IoT Projects</a></li>
+            </ul>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="content">
+            <!-- HTML Content Sections -->
+            <div id="html-intro" class="content-section">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" class="language-icon"> HTML Introduction</h1>
+                <p>HTML (HyperText Markup Language) is the standard markup language for creating web pages and web applications. It describes the structure of web pages using markup.</p>
+                <h2>What You Will Learn</h2>
+                <ul>
+                    <li>Basic HTML document structure</li>
+                    <li>HTML elements and attributes</li>
+                    <li>Working with text, links, and images</li>
+                    <li>Creating forms and tables</li>
+                    <li>HTML5 semantic elements</li>
+                </ul>
+                <div class="code-example">
+                    <button onclick="copyCode('example1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="example1"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;My First Page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello World!&lt;/h1&gt;
+    &lt;p&gt;This is my first HTML page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+            
+            <div id="html-basics" class="content-section" style="display:none;">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" class="language-icon"> HTML Basics</h1>
+                <p>HTML documents are made up of elements that define the structure and content of a web page.</p>
+                <h2>HTML Document Structure</h2>
+                <p>Every HTML document has a basic structure that includes the following elements:</p>
+                <div class="code-example">
+                    <button onclick="copyCode('html-basics-ex1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="html-basics-ex1"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Page Title&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;My First Heading&lt;/h1&gt;
+    &lt;p&gt;My first paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+            
+            <!-- CSS Content Sections -->
+            <div id="css-intro" class="content-section" style="display:none;">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/732/732190.png" class="language-icon"> CSS Introduction</h1>
+                <p>CSS (Cascading Style Sheets) is a stylesheet language used to describe the presentation of a document written in HTML.</p>
+                <h2>What You Will Learn</h2>
+                <ul>
+                    <li>CSS syntax and selectors</li>
+                    <li>Colors, backgrounds, and borders</li>
+                    <li>Box model and layout</li>
+                    <li>Flexbox and Grid systems</li>
+                    <li>Responsive design principles</li>
+                </ul>
+                <div class="code-example">
+                    <button onclick="copyCode('css-example1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="css-example1"><code>/* Change color of all paragraphs */
+p {
+    color: blue;
+    font-size: 16px;
+}
+
+/* Style headings */
+h1 {
+    color: green;
+    text-align: center;
+}</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+            
+            <!-- JavaScript Content Sections -->
+            <div id="js-intro" class="content-section" style="display:none;">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" class="language-icon"> JavaScript Introduction</h1>
+                <p>JavaScript is a programming language that enables interactive web pages. It is an essential part of web applications.</p>
+                <h2>What You Will Learn</h2>
+                <ul>
+                    <li>Variables and data types</li>
+                    <li>Functions and control structures</li>
+                    <li>DOM manipulation</li>
+                    <li>Event handling</li>
+                    <li>AJAX and Fetch API</li>
+                </ul>
+                <div class="code-example">
+                    <button onclick="copyCode('js-example1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="js-example1"><code>// Change HTML content
+document.getElementById("demo").innerHTML = "Hello JavaScript!";
+
+// Change HTML attribute
+document.getElementById("myImage").src = "picture.gif";
+
+// Handle button click
+document.getElementById("myBtn").addEventListener("click", function() {
+    alert("Button clicked!");
+});</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+            
+            <!-- Python Content Sections -->
+            <div id="python-intro" class="content-section" style="display:none;">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" class="language-icon python-icon"> Python Introduction</h1>
+                <p>Python is a high-level, interpreted programming language known for its simplicity and readability. It's widely used in web development, data science, AI, and more.</p>
+                <h2>What You Will Learn</h2>
+                <ul>
+                    <li>Python syntax and basic concepts</li>
+                    <li>Variables and data types</li>
+                    <li>Control structures and functions</li>
+                    <li>Working with files and modules</li>
+                    <li>Object-oriented programming in Python</li>
+                </ul>
+                <div class="code-example">
+                    <button onclick="copyCode('python-example1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="python-example1"><code># This is a simple Python program
+print("Hello, World!")
+
+# Calculate the sum of two numbers
+a = 5
+b = 7
+sum = a + b
+print(f"The sum of {a} and {b} is {sum}")
+
+# Define a function
+def greet(name):
+    print(f"Hello, {name}!")
+
+# Call the function
+greet("Alice")</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+            
+            <div id="python-syntax" class="content-section" style="display:none;">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" class="language-icon python-icon"> Python Syntax</h1>
+                <p>Python syntax is known for being clean and easy to read. Unlike many other languages, it uses indentation to define code blocks.</p>
+                <h2>Basic Syntax Rules</h2>
+                <ul>
+                    <li>Indentation matters (uses whitespace to define scope)</li>
+                    <li>No semicolons needed at the end of statements</li>
+                    <li>Comments start with #</li>
+                    <li>Variables are created when you first assign a value</li>
+                    <li>Case sensitive</li>
+                </ul>
+                <div class="code-example">
+                    <button onclick="copyCode('python-syntax-ex1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="python-syntax-ex1"><code># Variables and data types
+name = "Alice"  # String
+age = 25        # Integer
+height = 5.6    # Float
+is_student = True # Boolean
+
+# Conditional statement
+if age >= 18:
+    print(f"{name} is an adult")
+else:
+    print(f"{name} is a minor")
+
+# For loop
+for i in range(5):
+    print(i)
+
+# Function definition
+def calculate_area(length, width):
+    return length * width</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+            
+            <!-- PHP Content Sections -->
+            <div id="php-basics" class="content-section" style="display:none;">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/5968/5968332.png" class="language-icon"> PHP Basics</h1>
+                <p>PHP is a popular general-purpose scripting language that is especially suited to web development.</p>
+                <h2>What You Will Learn</h2>
+                <ul>
+                    <li>PHP syntax and variables</li>
+                    <li>Forms and user input</li>
+                    <li>Working with databases</li>
+                    <li>Object-oriented PHP</li>
+                    <li>Security best practices</li>
+                </ul>
+                <div class="code-example">
+                    <button onclick="copyCode('php-example1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="php-example1"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;?php
+echo "My first PHP script!";
+?&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+            
+            <!-- C/C++ Content Sections -->
+            <div id="c-basics" class="content-section" style="display:none;">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/3665/3665923.png" class="language-icon"> C Programming Basics</h1>
+                <p>C is a general-purpose programming language that has been around since the 1970s.</p>
+                <h2>What You Will Learn</h2>
+                <ul>
+                    <li>C syntax and structure</li>
+                    <li>Variables and data types</li>
+                    <li>Functions and pointers</li>
+                    <li>Memory management</li>
+                    <li>File handling</li>
+                </ul>
+                <div class="code-example">
+                    <button onclick="copyCode('c-example1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="c-example1"><code>#include &lt;stdio.h&gt;
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+            
+            <!-- Arduino Content Sections -->
+            <div id="arduino-intro" class="content-section" style="display:none;">
+                <h1><img src="https://cdn-icons-png.flaticon.com/512/2746/2746973.png" class="language-icon"> Arduino Introduction</h1>
+                <p>Arduino is an open-source electronics platform based on easy-to-use hardware and software.</p>
+                <h2>What You Will Learn</h2>
+                <ul>
+                    <li>Arduino board basics</li>
+                    <li>Digital and analog I/O</li>
+                    <li>Working with sensors</li>
+                    <li>Serial communication</li>
+                    <li>Building IoT projects</li>
+                </ul>
+                <div class="code-example">
+                    <button onclick="copyCode('arduino-example1')"><i class="far fa-copy"></i> Copy Code</button>
+                    <pre id="arduino-example1"><code>// the setup function runs once when you press reset or power the board
+void setup() {
+    // initialize digital pin LED_BUILTIN as an output
+    pinMode(LED_BUILTIN, OUTPUT);
+}
+
+// the loop function runs over and over again forever
+void loop() {
+    digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on
+    delay(1000);                      // wait for a second
+    digitalWrite(LED_BUILTIN, LOW);   // turn the LED off
+    delay(1000);                      // wait for a second
+}</code></pre>
+                </div>
+                <button class="try-it-button"><i class="fas fa-play"></i> Try it Yourself »</button>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="testimonial-container">
+            <h2 class="section-title">What Our Students Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">CodeMaster helped me transition from a complete beginner to a professional web developer in just 6 months. The interactive lessons and real-world projects were exactly what I needed.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sarah Johnson" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p>Web Developer at TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">As a teacher, I recommend CodeMaster to all my students. The way complex topics are broken down into simple, digestible lessons is exceptional.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="David Chen" class="author-avatar">
+                        <div class="author-info">
+                            <h4>David Chen</h4>
+                            <p>Computer Science Professor</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">I've tried many coding platforms, but CodeMaster's hands-on approach made all the difference. I finally understand programming concepts that confused me for years.</p>
+                    <div class="testimonial-author">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Maria Garcia" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Maria Garcia</h4>
+                            <p>Freelance Developer</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Learn</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> HTML</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> JavaScript</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Python</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> PHP</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Reference</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> HTML Tags</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> CSS Properties</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> JavaScript API</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Python Modules</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> PHP Functions</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Code Editor</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Cheat Sheets</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Projects</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Quiz</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    <li><a href="#"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 CodeMaster. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
+    <script>
+        // Function to copy code examples
+        function copyCode(id) {
+            const codeElement = document.getElementById(id);
+            const range = document.createRange();
+            range.selectNode(codeElement);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            
+            // Show copied notification
+            const button = codeElement.parentElement.querySelector('button');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            setTimeout(() => {
+                button.innerHTML = originalText;
+            }, 2000);
+        }
+        
+        // Language selector functionality
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const lang = this.dataset.lang;
+                
+                // Update active button
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Hide all content sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Show the first content section for the selected language
+                const firstContentId = {
+                    'html': 'html-intro',
+                    'css': 'css-intro',
+                    'js': 'js-intro',
+                    'python': 'python-intro',
+                    'php': 'php-basics',
+                    'c': 'c-basics',
+                    'cpp': 'cpp-basics',
+                    'arduino': 'arduino-intro'
+                };
+                
+                document.getElementById(firstContentId[lang]).style.display = 'block';
+                
+                // Update sidebar active items
+                updateSidebar(lang, firstContentId[lang]);
+            });
+        });
+        
+        // Sidebar link functionality
+        document.querySelectorAll('.sidebar li').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                const contentId = this.dataset.content;
+                
+                // Hide all content sections
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Show the selected content section
+                document.getElementById(contentId).style.display = 'block';
+                
+                // Update active item in sidebar
+                document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Update language selector based on content
+                updateLanguageSelector(contentId);
+                
+                // Scroll to top of content
+                document.querySelector('.content').scrollTo(0, 0);
+            });
+        });
+        
+        function updateSidebar(lang, contentId) {
+            // Hide all sidebar lists
+            document.querySelectorAll('.sidebar ul').forEach(ul => ul.style.display = 'none');
+            
+            // Show the selected language's sidebar list
+            const sidebarIndex = {
+                'html': 0,
+                'css': 1,
+                'js': 2,
+                'python': 3,
+                'php': 4,
+                'c': 5,
+                'cpp': 5, // Shares with C
+                'arduino': 6
+            };
+            
+            const allSidebarLists = document.querySelectorAll('.sidebar ul');
+            allSidebarLists[sidebarIndex[lang]].style.display = 'block';
+            
+            // Update active item in sidebar
+            document.querySelectorAll('.sidebar li').forEach(li => li.classList.remove('active'));
+            
+            // Find the item with matching data-content and make it active
+            const activeItem = document.querySelector(`.sidebar li[data-content="${contentId}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+            } else {
+                // If no matching item found, make the first item active
+                allSidebarLists[sidebarIndex[lang]].querySelector('li').classList.add('active');
+            }
+        }
+        
+        function updateLanguageSelector(contentId) {
+            // Determine language from contentId
+            let lang;
+            if (contentId.startsWith('html')) lang = 'html';
+            else if (contentId.startsWith('css')) lang = 'css';
+            else if (contentId.startsWith('js')) lang = 'js';
+            else if (contentId.startsWith('python')) lang = 'python';
+            else if (contentId.startsWith('php')) lang = 'php';
+            else if (contentId.startsWith('c-') || contentId.startsWith('cpp-')) lang = contentId.split('-')[0];
+            else if (contentId.startsWith('arduino')) lang = 'arduino';
+            
+            // Update language selector
+            if (lang) {
+                document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+                document.querySelector(`.lang-btn[data-lang="${lang}"]`).classList.add('active');
+            }
+        }
+        
+        // Back to top button
+        const backToTopButton = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Initialize with HTML content
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('html-intro').style.display = 'block';
+            updateSidebar('html', 'html-intro');
+            
+            // Animate elements when they come into view
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.feature-card, .stat-item, .testimonial-card');
+                
+                elements.forEach(element => {
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementPosition < windowHeight - 100) {
+                        element.style.opacity = '1';
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state for animated elements
+            document.querySelectorAll('.feature-card, .stat-item, .testimonial-card').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.6s ease-out';
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            animateOnScroll(); // Run once on load
+        });
+    </script>
+</body>
+</html>
